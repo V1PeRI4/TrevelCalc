@@ -20,7 +20,7 @@ namespace TaskHard2WinForm
             City[] cities = new City[] {
 
                     new City  (1, "Берлин", 399, 175, 1.13),
-                    new City  (2, "Прага", 300, 175),
+                    new City  (2, "Прага", 300, 270),
                     new City  (3, "Париж", 350, 220),
                     new City  (4, "Рига", 250, 170),
                     new City  (5, "Лондон", 390, 270),
@@ -29,53 +29,17 @@ namespace TaskHard2WinForm
                     new City  (8, "Варшава", 300, 190),
                     new City  (9, "Кишинев", 215, 110),
                     new City  (10, "Мадрид", 260, 190),
-                    new City  (11, "Будапешт", 399, 175)
+                    new City  (11, "Будапешт", 269, 230)
                 };
             return cities;
         }
 
-        public static City[] SelectCity(City[] cities, int countSelectedCity)
+
+
+
+        static double CalcPriceTwo(double price, City[] cities, string firstCity, string secondCity)
         {
-            City[] select = new City[countSelectedCity];
-
-            int temp = 0;
-            bool isException = false;
-
-            for (int i = 1; i <= countSelectedCity; i++)
-            {
-                do
-                {
-                    if (i == 1)
-                    {
-                        Console.Write($"Введите номер города из которого начнете путешествие: ");
-                    }
-                    else
-                    {
-                        Console.Write($"Введите номер {i - 1} города: ");
-                    }
-
-                    try
-                    {
-                        temp = Convert.ToInt32(Console.ReadLine());
-                        select[i - 1] = cities[temp];
-                        isException = false;
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Введи правильный номер города");
-                        isException = true;
-                    }
-                } while (isException);
-            }
-            return select;
-        }
-
-
-
-
-        static double CalcPrice(double price, City[] cities, string firstCity, string secondCity)
-        {
-            for (int i = 1; i < 11; i++)
+            for (int i = 0; i <= 10; i++)
             {
                 if (secondCity == cities[i].name)
                 {
@@ -83,59 +47,114 @@ namespace TaskHard2WinForm
                 }
             }
 
-            if (secondCity == "Берлин")
+            if(firstCity == "Мадрид")
             {
-                price += cities[1].price * cities[1].nalog - cities[1].price;
-                price += cities[1].price * 1.04 - cities[1].price;
+                price += cities[2].transit;
             }
-
-            if (secondCity == "Прага")
-                price += cities[2].price * 1.04 - cities[2].price;
-
-            if (secondCity == "Париж")
-                price += cities[3].price * 1.04 - cities[3].price;
-
-            if (secondCity == "Рига")
-            {
-                price += cities[8].transit;
-                if (firstCity == "Париж") price += cities[4].price * 1.09 - cities[4].price;
-                price += cities[4].price * 1.04 - cities[4].price;
-                if (firstCity == "Палермо") price += cities[8].transit + cities[1].transit;
-            }
-
-            if (secondCity == "Лондон")
-                price += cities[3].price;
-
-            if (secondCity == "Палермо")
-            {
-                if (firstCity == "Лондон") price += cities[7].price * 1.07 - cities[7].price;
-                if (firstCity == "Кишинев") price += cities[7].price * 1.11 - cities[7].price;
-                price += cities[7].price * 1.04 - cities[7].price;
-                if (firstCity == "Рига") price += cities[8].transit + cities[1].transit;
-            }
-
-            if (secondCity == "Варшава")
-                price += cities[8].price * 1.04 - cities[8].price;
-
-            if (secondCity == "Кишинев")
-                price += cities[11].transit;
 
             if (secondCity == "Мадрид")
             {
-                price += cities[3].transit;
-                price += cities[10].price * 1.04 - cities[10].price;
+                if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
+                {
+                    price += cities[9].price * 1.04 - cities[9].price;
+                }
             }
 
-            if (secondCity == "Будапешт")
-                price += cities[11].price * 1.04 - cities[11].price;
+            if (firstCity == "Кишинев")
+            {
+                price += cities[10].transit;
+
+            }
+
+            if (firstCity == "Лондон")
+            {
+                price += cities[2].price;
+            }
+
+            if (firstCity == "Рига")
+            {
+                price += cities[7].transit;
+            }
+
+            if (secondCity == "Берлин")
+            {
+                price += cities[0].nalog;
+
+                if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
+                {
+                    price += cities[0].price * 1.04 - cities[0].price;
+                }
+            }
+
+            if (secondCity == "Палермо")
+            {
+                if(firstCity == "Лондон") price *= cities[6].price * 1.07 - cities[6].price;
+                if (firstCity == "Кишинев") price += cities[6].price * 1.11 - cities[6].price;
+
+                if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
+                {
+                    price += cities[6].price * 1.04 - cities[6].price;
+                }
+            }
+
+            if (secondCity == "Рига")
+            {
+                if (firstCity == "Париж") price += cities[3].price * 1.09 - cities[3].price;
+
+                if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
+                {
+                    price += cities[3].price * 1.04 - cities[3].price;
+                }
+            }
+
+            if(secondCity == "Париж")
+            {
+                if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
+                {
+                    price += cities[2].price * 1.04 - cities[2].price;
+                }
+            }
+
+            if (secondCity == "Варшава")
+            {
+                if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
+                {
+                    price += cities[7].price * 1.04 - cities[7].price;
+                }
+            }
+
+            if(secondCity == "Будапешт")
+            {
+                if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
+                {
+                    price += cities[10].price * 1.04 - cities[10].price;
+                }
+            }
+
+
+            if (secondCity == "Прага")
+            {
+                if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
+                {
+                    price += cities[1].price * 1.04 - cities[1].price;
+                }
+            }
+
+
+            if(firstCity == "Палермо" && secondCity == "Рига" || firstCity == "Рига" && secondCity == "Палермо")
+            {
+                price += cities[7].transit + cities[0].transit; 
+            }
+
 
             return price;
         }
 
-        public Form1()
-        {
-            InitializeComponent();
-        }
+
+            public Form1()
+            {
+                InitializeComponent();
+            }
 
         
 
@@ -168,33 +187,35 @@ namespace TaskHard2WinForm
 
             infoTrue();
 
-            string[] arrCombo = new string[10];
-            arrCombo[0] = comboBox_Travel1.Text;
-            arrCombo[1] = comboBox_Travel2.Text;
-            arrCombo[2] = comboBox_Travel3.Text;
+            string[] arrCombo = new string[11];
+            arrCombo[0] = comboBox_Home.Text;
+            arrCombo[1] = comboBox_Travel1.Text;
+            arrCombo[2] = comboBox_Travel2.Text;
+            arrCombo[3] = comboBox_Travel3.Text;
 
-
-            double price = 0;
+            double result = 0;
+            
 
             for (int i = 0; i < countCityTravel; i++)
             {
+                double price = 0;
                 int temp = countCityTravel;
                 if (temp == countCityTravel)
                 {
-                    price += CalcPrice(price, cities, comboBox_Home.Text, arrCombo[i]);
+                    price = CalcPriceTwo(price, cities, arrCombo[i], arrCombo[i+1]);
                     if (comboBox_Home.Text == "Ватикан") price *= 1.5;
+                    result += price; 
                 }
             }
- 
-            Console.WriteLine($"Стоимость поездки: {price}");
 
-            if (price > budget)
+
+            if (result > budget)
             {
-                MessageBox.Show($"Не достаточно средств для путешествия, стоимость поездки {price}");
+                MessageBox.Show($"Не достаточно средств для путешествия, стоимость поездки {result}");
             }
             else
             {
-                MessageBox.Show($"Стоимость поездки: {price}");
+                MessageBox.Show($"Стоимость поездки: {result}");
             }
         }
 
