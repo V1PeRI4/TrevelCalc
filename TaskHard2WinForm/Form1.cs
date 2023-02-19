@@ -78,7 +78,7 @@ namespace TaskHard2WinForm
 
             if (secondCity == "Берлин")
             {
-                price += cities[0].nalog;
+                price *= cities[0].nalog;
 
                 if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
                 {
@@ -203,7 +203,7 @@ namespace TaskHard2WinForm
                 if (temp == countCityTravel)
                 {
                     price = CalcPriceTwo(price, cities, arrCombo[i], arrCombo[i+1]);
-                    if (comboBox_Home.Text == "Ватикан") price *= 1.5;
+                    if (arrCombo[i] == "Ватикан") price *= 1.5;
                     result += price; 
                 }
             }
