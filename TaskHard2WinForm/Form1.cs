@@ -88,7 +88,7 @@ namespace TaskHard2WinForm
 
             if (secondCity == "Палермо")
             {
-                if(firstCity == "Лондон") price *= cities[6].price * 1.07 - cities[6].price;
+                if(firstCity == "Лондон") price += cities[6].price * 1.07 - cities[6].price;
                 if (firstCity == "Кишинев") price += cities[6].price * 1.11 - cities[6].price;
 
                 if (firstCity == "Ватикан" || firstCity == "Лондон" || firstCity == "Кишинев")
